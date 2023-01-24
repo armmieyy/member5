@@ -1,56 +1,74 @@
 <template>
   <v-container>
     <v-app id="app">
-      <v-content>
-        <v-container fluid fill-height>
-          <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md4>
-              <v-card class="elevation-12">
-                <v-toolbar dark color="primary">
-                  <v-toolbar-title>Login</v-toolbar-title>
-                </v-toolbar>
-                <v-card-text>
-                  <form @submit.prevent="handleSubmit" ref="form">
-                    <v-text-field
-                      v-model="email"
-                      prepend-icon="mdi-account"
-                      name="email"
-                      :rules="[rules.required, rules.email]"
-                      label="Email"
-                      type="email"
-                    ></v-text-field>
-                    <v-text-field
-                      v-model="password"
-                      prepend-icon="mdi-lock"
-                      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                      :rules="[rules.required, rules.password]"
-                      :type="show1 ? 'text' : 'password'"
-                      counter
-                      @click:append="show1 = !show1"
-                      name="password"
-                      label="Password"
-                    ></v-text-field>
+      <v-layout align-center justify-center>
+        <v-flex xs12 sm8 md4>
+          <v-card class="elevation-12">
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>Login</v-toolbar-title>
+            </v-toolbar>
+            <v-card-text>
+              <form @submit.prevent="handleSubmit" ref="form">
+                <v-text-field
+                  v-model="email"
+                  prepend-icon="mdi-account"
+                  name="email"
+                  :rules="[rules.required, rules.email]"
+                  label="Email"
+                  type="email"
+                ></v-text-field>
+                <v-text-field
+                  v-model="password"
+                  prepend-icon="mdi-lock"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="[rules.required, rules.password]"
+                  :type="show1 ? 'text' : 'password'"
+                  counter
+                  @click:append="show1 = !show1"
+                  name="password"
+                  label="Password"
+                ></v-text-field>
 
-                    <v-card-actions class="mt-5">
-                      <!-- <v-btn depressed to="/">Back</v-btn> -->
-                      <v-spacer></v-spacer>
-                      <v-btn @click="handleSubmit" color="success">Login</v-btn>
-                    </v-card-actions>
-                  </form>
-                </v-card-text>
-              </v-card>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-content>
+                <v-card-actions class="mt-5">
+                  <!-- <v-btn depressed to="/">Back</v-btn> -->
+                  <v-spacer></v-spacer>
+                  <v-btn type="submit" color="success">Login</v-btn>
+                </v-card-actions>
+              </form>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-app>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
 export default {
   name: "Login",
+  // setup() {
+  //   const data = reactive({
+  //     email: "",
+  //     password: "",
+  //   });
+  //   const router = useRouter();
+  //   const submit = async () => {
+  //     await fetch("http://localhost:3000/auth/login", {
+  //       methods: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       credentials: "include",
+  //       body: JSON.stringify(data),
+  //     });
+  //     await router.push("/home");
+  //   };
+  //   return {
+  //     data,
+  //     submit,
+  //   };
+  // },
   props: {
     source: String,
   },
@@ -78,24 +96,23 @@ export default {
   },
   methods: {
     // async handleSubmit() {
-    //   await axios.post("http://localhost:3000/auth/login", {
+    //    await axios.post("http://localhost:3000/auth/login", {
     //     email: this.email,
     //     password: this.password,
     //   });
-      
 
     //   localStorage.setItem('token, respone.data.token')
     //   this.$store.dispatch('user', response.data.token)
     //   this.$router.push('/')
     // },
     async handleSubmit() {
-      const response = await axios.post('http://localhost:3000/auth/login', {
+      const response = await axios.post("http://localhost:3000/auth/login", {
         email: this.email,
-        password: this.password
+        password: this.password,
       });
 
-      console.log(response)
-    }
+      console.log(response);
+    },
   },
 };
 </script>

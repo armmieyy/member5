@@ -1,5 +1,5 @@
 <template>
-  <div class="c">
+  <div class="c xs">
     <br /><br />
     <h1 class="ml-16">Manage User</h1>
     <br />

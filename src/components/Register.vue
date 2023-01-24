@@ -147,6 +147,7 @@ export default {
         this.dialogedit = false;
       } catch (err) {
         // console.log(err);
+        this.$router.push('/login');
       }
     },
     async deleteData() {
