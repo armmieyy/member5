@@ -7,10 +7,6 @@
     <v-row no-gutters>
       <v-col cols="6" v-for="(item, index) in apidata" :key="index">
         <v-card elevation="8" class="pb-4 my-8 mx-16">
-          <!-- <v-img
-            src="https://inwfile.com/s-ge/o0fctq.jpg"
-            height="200px"
-          ></v-img> -->
           <v-row class="mb-2 mr-10 ml-10 align-center">
             <v-card-title class="mx-20">
               Email : {{ item.email }}
@@ -29,43 +25,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <!-- <v-dialog v-model="dialogdetail" max-width="500px">
-      <v-card>
-        <v-card-title class="justify-center h4">
-          {{ itemdata.product_name }}
-        </v-card-title>
-        <v-img
-          class="my-4"
-          src="https://inwfile.com/s-ge/o0fctq.jpg"
-          height="200px"
-        ></v-img>
-        <v-card-text>
-          <v-row>
-            <v-col cols="6">
-              <v-card-text
-                >Price : <b> $ {{ itemdata.price }} </b></v-card-text
-              >
-            </v-col>
-            <v-col cols="6">
-              <v-card-text>
-                Category : <b> {{ itemdata.category }} </b></v-card-text
-              >
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <v-card-text>
-                Description : {{ itemdata.description }}</v-card-text
-              >
-            </v-col>
-          </v-row>
-        </v-card-text>
-        <v-card-actions class="justify-end pr-8 pb-8">
-          <v-btn color="error" text @click="closeData()">close</v-btn>
-          <v-btn color="warning" @click="editItemMode(item)">Edit</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog> -->
     <v-dialog v-model="dialogedit" max-width="500px" class="">
       <v-card>
         <v-card-title>{{ savemode }}</v-card-title>
@@ -109,15 +68,6 @@
                 v-model="postdata.lname"
               ></v-text-field>
             </v-col>
-            <!-- <v-col cols="12">
-              <v-textarea
-                auto-grow
-                name="description"
-                label="description"
-                id="description"
-                v-model="postdata.description"
-              ></v-textarea>
-            </v-col> -->
           </v-row>
         </v-card-text>
         <v-card-actions class="pb-8 justify-end pr-8">
