@@ -97,7 +97,6 @@ export default {
       apidata: [],
       dialogedit: false,
       dialogdelete: false,
-      dialogdetail: false,
       itemdata: [],
       postdata: {
         // ตัวส่งข้อมูลหลัก
@@ -232,7 +231,6 @@ export default {
       this.postdata = { ...this.postdefault };
       this.dialogedit = false;
       this.dialogdelete = false;
-      this.dialogdetail = false;
     },
     deleteItemMode(item) {
       // กดปุ่มแก้ไข
