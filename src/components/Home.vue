@@ -1,38 +1,40 @@
 <template>
-  <div class="container mt-5 text-center">
-    <h3>{{ message }}</h3>
-
-    <a href="javascript:void(0)" class="btn btn-lg btn-primary" @click="logout"
-      >Logout</a
-    >
-  </div>
+  <v-container>
+    <v-app id="home">
+      <div class="pt-5 mt-5">
+        <button @click="logout">logout</button>
+        <h1>HELLO {{ fname }}</h1>
+        <h2>your email is: {{ email }}</h2>
+      </div>
+    </v-app>
+  </v-container>
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
 import axios from "axios";
-import { useRouter } from "vue-router";
 export default {
   name: "Home",
-  setup() {
-    const message = ref("Not Logged in");
-    onMounted(async () => {
-      const response = await fetch("http://localhost:3000/user", {
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
-      const content = await response.json();
-      message.value = 'Hi ${content.fname}'
-    });
-    const logout = async () => {
-      await axios.post("logout", {}, { withCredentials: true });
-      axios.defaults.headers.common["Authorization"] = "";
-      await router.push("/login");
-    };
-    return {
-      message,
-      logout,
-    };
+
+  // created() {
+  //   if (localStorage.getItem("token") === null) {
+  //     this.$router.push("/");
+  //   }
+  // },
+  // mounted() {
+  //   axios
+  //     .get("http://localhost:3000/user", {
+  //       headers: { token: localStorage.getItem("token") },
+  //     })
+  //     .then((res) => {
+  //       this.name = res.data.user.name;
+  //       this.email = res.data.user.email;
+  //     });
+  // },
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push("/");
+    },
   },
 };
 </script>

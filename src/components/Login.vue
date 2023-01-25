@@ -32,7 +32,7 @@
                 <v-card-actions class="mt-5">
                   <!-- <v-btn depressed to="/">Back</v-btn> -->
                   <v-spacer></v-spacer>
-                  <v-btn type="submit" color="success">Login</v-btn>
+                  <v-btn @click="login" color="success">Login</v-btn>
                 </v-card-actions>
               </form>
             </v-card-text>
@@ -105,13 +105,29 @@ export default {
     //   this.$store.dispatch('user', response.data.token)
     //   this.$router.push('/')
     // },
-    async handleSubmit() {
-      const response = await axios.post("http://localhost:3000/auth/login", {
+    // async handleSubmit() {
+    //   const response = await axios.post("http://localhost:3000/auth/login", {
+    //     email: this.email,
+    //     password: this.password,
+    //   });
+
+    //   console.log(response);
+    // },
+    login() {
+      let user = {
         email: this.email,
         password: this.password,
-      });
-
-      console.log(response);
+      };
+      axios.post("http://localhost:3000/auth/login" ,user).then(
+        (res) => {
+          console.log(res);
+          this.$router.push('/home');
+        },
+        (err) => {
+          console.log(err.response);
+          this.error = err.response.data.error;
+        }
+      );
     },
   },
 };

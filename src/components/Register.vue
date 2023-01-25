@@ -142,12 +142,13 @@ export default {
           this.postdata
         );
         alert(data.message);
+        this.$router.push('/');
         this.getData();
         this.postdata = { ...this.postdefault };
         this.dialogedit = false;
       } catch (err) {
         // console.log(err);
-        this.$router.push('/login');
+        // this.$router.push('/');
       }
     },
     async deleteData() {
