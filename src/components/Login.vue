@@ -32,7 +32,7 @@
                 <v-card-actions class="mt-5">
                   <!-- <v-btn depressed to="/">Back</v-btn> -->
                   <v-spacer></v-spacer>
-                  <v-btn @click="login" color="success">Login</v-btn>
+                  <v-btn @click="handleSubmit" color="success">Login</v-btn>
                 </v-card-actions>
               </form>
             </v-card-text>
@@ -49,26 +49,6 @@ import { reactive } from "vue";
 import { useRouter } from "vue-router";
 export default {
   name: "Login",
-  // setup() {
-  //   const data = reactive({
-  //     email: "",
-  //     password: "",
-  //   });
-  //   const router = useRouter();
-  //   const submit = async () => {
-  //     await fetch("http://localhost:3000/auth/login", {
-  //       methods: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       credentials: "include",
-  //       body: JSON.stringify(data),
-  //     });
-  //     await router.push("/home");
-  //   };
-  //   return {
-  //     data,
-  //     submit,
-  //   };
-  // },
   props: {
     source: String,
   },
@@ -95,41 +75,42 @@ export default {
     };
   },
   methods: {
-    // async handleSubmit() {
-    //    await axios.post("http://localhost:3000/auth/login", {
-    //     email: this.email,
-    //     password: this.password,
-    //   });
-
-    //   localStorage.setItem('token, respone.data.token')
-    //   this.$store.dispatch('user', response.data.token)
-    //   this.$router.push('/')
-    // },
-    // async handleSubmit() {
-    //   const response = await axios.post("http://localhost:3000/auth/login", {
-    //     email: this.email,
-    //     password: this.password,
-    //   });
-
-    //   console.log(response);
-    // },
-    login() {
+    async handleSubmit() {
       let user = {
         email: this.email,
         password: this.password,
       };
-      axios.post("http://localhost:3000/auth/login" ,user).then(
-        (res) => {
-          console.log(res);
-          this.$router.push('/home');
-        },
-        (err) => {
-          console.log(err.response);
-          this.error = err.response.data.error;
-        }
+      const response = await axios.post(
+        "http://localhost:3000/auth/login",
+        user
       );
+      console.log(response);
+      if (response.status == '200') {
+        localStorage.setItem("token", (response.data.token));
+        // localStorage.setItem("email", JSON.stringify(response.data.data.email));
+      }
+      this.$router.push("/home");
     },
+    // login() {
+    //   let user = {
+    //     email: this.email,
+    //     password: this.password,
+    //   };
+    //   axios.post("http://localhost:3000/auth/login", user).then(
+    //     (res) => {
+    //       console.log(res);
+    //       this.$router.push("/home", this.user);
+    //     },
+    //     (err) => {
+    //       console.log(err.response);
+    //       this.error = err.response.data.error;
+    //     }
+    //   );
+    // },
   },
+  mounted(){
+    let user = localStorage.getItem('user-info');
+  }
 };
 </script>
 <style>

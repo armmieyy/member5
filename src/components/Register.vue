@@ -147,7 +147,7 @@ export default {
         this.postdata = { ...this.postdefault };
         this.dialogedit = false;
       } catch (err) {
-        // console.log(err);
+        console.log(err);
         // this.$router.push('/');
       }
     },

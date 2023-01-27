@@ -40,7 +40,7 @@
                 v-model="postdata.email"
               ></v-text-field>
             </v-col>
-            <v-col cols="6">
+            <!-- <v-col cols="6">
               <v-text-field
                 name="password"
                 :rules="rules.password"
@@ -49,7 +49,7 @@
                 type="password"
                 v-model="postdata.password"
               ></v-text-field>
-            </v-col>
+            </v-col> -->
             <v-col cols="6">
               <v-text-field
                 name="fname"
@@ -210,7 +210,7 @@ export default {
     selectSave() {
       // ตัดสินใจบันทึกโหมดไหน
       // eslint-disable-next-line eqeqeq
-      if (this.savemode == "Edit Item") {
+      if (this.savemode == "Edit User") {
         this.putData();
       } else this.postData();
     },
