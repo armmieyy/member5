@@ -31,8 +31,9 @@
 
                 <v-card-actions class="mt-5">
                   <!-- <v-btn depressed to="/">Back</v-btn> -->
+                  {{ error }}
                   <v-spacer></v-spacer>
-                  <v-btn @click="handleSubmit" color="success">Login</v-btn>
+                  <v-btn @click="login" color="success">Login</v-btn>
                 </v-card-actions>
               </form>
             </v-card-text>
@@ -54,19 +55,20 @@ export default {
   },
   data() {
     return {
+      error: "",
       email: "",
       show1: false,
       password: "",
       rules: {
         required: (value) => !!value || "Required.",
         min: (v) => v.length >= 8 || "Min 8 characters",
-        email: (value) => {
-          if (value.length > 0) {
-            const pattern =
-              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return pattern.test(value) || "Invalid e-mail.";
-          }
-        },
+        // email: (value) => {
+        //   if (value.length > 0) {
+        //     const pattern =
+        //       /^(([^<script>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        //     return pattern.test(value) || "Invalid e-mail.";
+        //   }
+        // },
         password: [
           (value) => !!value || "Required password.",
           (value) => (value && value.length >= 8) || "minimum 8 characters",
@@ -75,42 +77,49 @@ export default {
     };
   },
   methods: {
-    async handleSubmit() {
-      let user = {
-        email: this.email,
-        password: this.password,
-      };
-      const response = await axios.post(
-        "http://localhost:3000/auth/login",
-        user
-      );
-      console.log(response);
-      if (response.status == '200') {
-        localStorage.setItem("token", (response.data.token));
-        // localStorage.setItem("email", JSON.stringify(response.data.data.email));
-      }
-      this.$router.push("/home");
-    },
-    // login() {
+    // async handleSubmit() {
+    //   // try {
     //   let user = {
     //     email: this.email,
     //     password: this.password,
     //   };
-    //   axios.post("http://localhost:3000/auth/login", user).then(
-    //     (res) => {
-    //       console.log(res);
-    //       this.$router.push("/home", this.user);
-    //     },
-    //     (err) => {
-    //       console.log(err.response);
-    //       this.error = err.response.data.error;
-    //     }
+    //   const response = await axios.post(
+    //     "http://localhost:3000/auth/login",
+    //     user
     //   );
+    //   // console.log(response);
+    //   if (response.status == "200") {
+    //     localStorage.setItem("token", response.data.token);
+    //     // alert.success('Login Successful')
+    //     // localStorage.setItem("email", JSON.stringify(response.data.data.email));
+    //     this.$router.push("/home");
+    //   } else if (response.status == "401") {
+    //     console.log("asdasasdasd");
+    //   }
     // },
+    login() {
+      let user = {
+        email: this.email,
+        password: this.password,
+      };
+      axios.post("http://localhost:3000/auth/login", user).then(
+        (res) => {
+          if (res.status === 200) {
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("isLoggin",true);
+          }
+          console.log(res);
+          this.$router.push("/home", this.user);
+          window.location.reload(true);
+          // this.$router.go("/home")
+        },
+        (err) => {
+          console.log(err.response);
+          this.error = err.response.data.title;
+        }
+      );
+    },
   },
-  mounted(){
-    let user = localStorage.getItem('user-info');
-  }
 };
 </script>
 <style>
