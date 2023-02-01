@@ -8,7 +8,7 @@
 import HelloWorld from "../components/HelloWorld";
 
 export default {
-  name: "Login",
+  // name: "Login",
 
   components: {
     HelloWorld,

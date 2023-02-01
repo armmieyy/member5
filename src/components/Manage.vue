@@ -3,7 +3,6 @@
     <br /><br />
     <h1 class="ml-16">Manage User</h1>
     <br />
-    <br /><br />
     <v-row no-gutters>
       <v-col cols="6" v-for="(item, index) in apidata" :key="index">
         <v-card elevation="8" class="pb-4 my-8 mx-16">
@@ -111,11 +110,6 @@ export default {
         password: "",
         fname: "",
         lname: "",
-        // username: '',
-        // password: '',
-        // name: '',
-        // address: '',
-        // moneypag: 1234
       },
       rules: {
         required: (value) => !!value || "Required.",
@@ -156,7 +150,7 @@ export default {
   },
   methods: {
     getData() {
-      this.axios.get("http://localhost:3000/user/").then((response) => {
+      this.axios.get("http://localhost:3000/crud/").then((response) => {
         console.log(response.data);
         this.apidata = response.data.data;
       });
@@ -180,7 +174,7 @@ export default {
       // ลบข้อมูล
       try {
         const { data } = await this.axios.delete(
-          "http://localhost:3000/user/" + this.id
+          "http://localhost:3000/crud/" + this.id
         );
         alert(data.message);
         this.getData();
@@ -196,7 +190,7 @@ export default {
       // แก้ไขข้อมูล
       try {
         const { data } = await this.axios.put(
-          "http://localhost:3000/user/" + this.id,
+          "http://localhost:3000/crud/" + this.id,
           this.postdata
         );
         alert(data.message);
