@@ -26,7 +26,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    let email = localStorage.getItem("email");
+    let token = localStorage.getItem("token");
+    // if(email.length > 1){
+    //   console.log(email);
+    // }
+
+    // document.getElementById("email").innerHTML = email;
+  },
+};
 </script>
 
 <style></style>
